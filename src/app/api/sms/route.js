@@ -10,6 +10,8 @@ export async function POST(request) {
     const data = await request.json();
     const message = await client.messages.create({
       body: data.message,
+      // from: "whatsapp:+14252797504",
+      // to: `whatsapp:${data.phone}`
       from: "+14252797504",
       to: data.phone,
     });
@@ -23,5 +25,14 @@ export async function POST(request) {
     );
   } catch (error) {
     console.error(error);
+
+    return NextResponse.json(
+      {
+        message: "Error sending message",
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
